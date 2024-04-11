@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* If the user prefers dark mode, 
+we of course apply color-scheme: dark, as usual */
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+    }
+}
+
+/* If the user prefers light mode, 
+we still enforce color-scheme: dark, despite the user preference */
+@media (prefers-color-scheme: light) {
+    html {
+        color-scheme: dark;
+    }
+}
+
+:root,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    scroll-behavior: smooth;
+}
+
+:root {
+    background-color: #080808;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    background: radial-gradient(ellipse at top, #35828280 0%, transparent 70%);
+    width: 100%;
+    height: min(35rem, 60vw);
+    background-size: max(70vw, 50rem);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-blur {
+    background-color: #ffffff10;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+a[target=_blank] {
+    color: rgb(70, 255, 255);
+}
