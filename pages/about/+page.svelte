@@ -1,8 +1,27 @@
 <script lang="ts">
+    import { PUBLIC_ABOUT_DATA } from "$env/static/public";
+    import Head from "$lib/components/Head.svelte";
+
+    type Education = {
+        course: string;
+        major: string;
+        cgpa: string;
+        college: string;
+        year: string;
+    };
+
+    const tableData: Education[] = JSON.parse(PUBLIC_ABOUT_DATA)['education'];
+    const tableHeaders = Object.keys(
+        tableData[0],
+    ) as unknown as keyof Education;
 </script>
 
-<section class="flex flex-col gap-2 p-2">
-    <div>
+<Head title="About" />
+
+<main class="underline-wavy-headings flex flex-col gap-2 p-2">
+    <h1>About me</h1>
+
+    <section>
         <h2>Hello!</h2>
         <p class="px-2">
             I'm <strong>Praveen Yadav</strong>, Full-Stack Developer with a
@@ -11,9 +30,9 @@
             in-demand technologies. Experienced in cloud computing with AWS and
             database management with Postgres.
         </p>
-    </div>
+    </section>
 
-    <div>
+    <section>
         <h3>Skills</h3>
         <ul class="px-2">
             <li>Programming Languages: JavaScript, C++, C, Python</li>
@@ -22,73 +41,40 @@
             <li>Cloud: AWS</li>
             <li>Other: Git, OOP, DBMS</li>
         </ul>
-    </div>
-
-    <div>
+    </section>
+    <section>
         <h3>Education</h3>
-        <table class="px-1">
-            <thead>
+
+        <table class="px-1 overflow-auto">
+            <thead class="bg-white/10">
                 <tr>
-                    <th>Course</th>
-                    <th>Major</th>
-                    <th>CGPA %</th>
-                    <th>College/School</th>
-                    <th>Year</th>
+                    {#each tableHeaders as key (key)}
+                        <th>{key}</th>
+                    {/each}
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>B.Tech</td>
-                    <td>Computer Science</td>
-                    <td>8.49 / 10</td>
-                    <td
-                        >Technocrats Institute of Technology & Science, Bhopal</td
-                    >
-                    <td>2018 - 2022</td>
-                </tr>
-                <tr>
-                    <td>12th</td>
-                    <td>Science</td>
-                    <td>72.2% / 100</td>
-                    <td>Govt. Boys higher secondary school, Rehti</td>
-                    <td>2017 - 2018</td>
-                </tr>
-                <tr>
-                    <td>10th</td>
-                    <td></td>
-                    <td>75% / 100</td>
-                    <td>Sant Kripa public high school, Rehti</td>
-                    <td>2015 - 2016</td>
-                </tr>
+                {#each tableData as row (row["course"])}
+                    <tr class="hover:bg-white/5">
+                        {#each tableHeaders as key (key)}
+                            <td>{row[key as keyof Education]}</td>
+                        {/each}
+                    </tr>
+                {/each}
             </tbody>
         </table>
+    </section>
 
-        <!-- <ul class="px-2">
-            <li>
-                B.Tech in Computer Science (CGPA: 8.49/10) - Technocrats
-                Institute of Technology & Science, Bhopal (2018-2022) 2018 -
-                2022
-            </li>
-            <li>
-                12th Govt. Boys higher secondary school, Rehti 72.2% / 100 2017
-                - 2018
-            </li>
-            <li>
-                10th Sant Kripa public high school, Rehti 75% / 100 2015 - 2016
-            </li>
-        </ul> -->
-    </div>
-
-    <div>
+    <section>
         <h3>Internship</h3>
         <p class="px-2">
             Full Stack Developer (Programmer Analyst Trainee) - Cognizant
             (Remote) (Feb 2022 - Jul 2022) Gained experience in Java, Spring,
             React, and web development fundamentals.
         </p>
-    </div>
+    </section>
 
-    <div>
+    <section>
         <h3>Projects</h3>
 
         <ul class="px-2">
@@ -104,11 +90,11 @@
                 Apna Forum
 
                 <a target="_blank" href="https://apnaforum.vercel.app"
-                    >https://apnaforum.vercel.app</a
-                >
+                    >apnaforum.vercel.app
+                </a>,
                 <a target="_blank" href="https://github.com/pixiedevs/acadEval"
-                    >https://github.com/pixiedevs/acadEval</a
-                >
+                    >www.github.com/pixiedevs/acadEval
+                </a>
                 A forum for students to connect and seek help from peers and seniors.
             </li>
             <li>
@@ -121,9 +107,9 @@
                 3) and Django REST API.
             </li>
         </ul>
-    </div>
+    </section>
 
-    <div>
+    <section>
         <h3>Achievements</h3>
         <ul class="px-2">
             <li>
@@ -138,8 +124,5 @@
                 competitions.
             </li>
         </ul>
-    </div>
-</section>
-
-<style>
-</style>
+    </section>
+</main>

@@ -2,6 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        /* --background: 0 0% 100%;
+        --foreground: 20 14.3% 4.1%;
+        --card: 0 0% 100%;
+        --card-foreground: 20 14.3% 4.1%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 20 14.3% 4.1%;
+        --primary: 24.6 95% 53.1%;
+        --primary-foreground: 60 9.1% 97.8%;
+        --secondary: 60 4.8% 95.9%;
+        --secondary-foreground: 24 9.8% 10%;
+        --muted: 60 4.8% 95.9%;
+        --muted-foreground: 25 5.3% 44.7%;
+        --accent: 60 4.8% 95.9%;
+        --accent-foreground: 24 9.8% 10%;
+        --destructive: 0 72.22% 50.59%;
+        --destructive-foreground: 60 9.1% 97.8%;
+        --border: 20 5.9% 90%;
+        --input: 20 5.9% 90%;
+        --ring: 24.6 95% 53.1%;
+    }
+
+    .dark { */
+
+        --background: 20 14.3% 4.1%;
+        --foreground: 60 9.1% 97.8%;
+        --card: 20 14.3% 4.1%;
+        --card-foreground: 60 9.1% 97.8%;
+        --popover: 20 14.3% 4.1%;
+        --popover-foreground: 60 9.1% 97.8%;
+        --primary: 20.5 90.2% 48.2%;
+        --primary-color: #ea580c;
+        --primary-foreground: 60 9.1% 97.8%;
+        --secondary: 12 6.5% 15.1%;
+        --secondary-foreground: 60 9.1% 97.8%;
+        --muted: 12 6.5% 15.1%;
+        --muted-foreground: 24 5.4% 63.9%;
+        --accent: 12 6.5% 15.1%;
+        --accent-foreground: 60 9.1% 97.8%;
+        --destructive: 0 72.2% 50.6%;
+        --destructive-foreground: 60 9.1% 97.8%;
+        --border: 12 6.5% 15.1%;
+        --input: 12 6.5% 15.1%;
+        --ring: 20.5 90.2% 48.2%;
+    }
+}
+
 /* If the user prefers dark mode, 
 we of course apply color-scheme: dark, as usual */
 @media (prefers-color-scheme: dark) {
@@ -22,6 +71,7 @@ we still enforce color-scheme: dark, despite the user preference */
 body {
     padding: 0;
     margin: 0;
+    scroll-padding-top: 4rem;
 }
 
 body {
@@ -37,12 +87,13 @@ body::before {
     content: "";
     position: absolute;
     top: 0;
-    background: radial-gradient(ellipse at top, #35828280 0%, transparent 70%);
+    background: radial-gradient(ellipse at top, hsl(var(--primary) / .4) 0%, transparent 70%);
     width: 100%;
     height: min(35rem, 60vw);
     background-size: max(70vw, 50rem);
     background-repeat: no-repeat;
     background-position: center;
+    z-index: -1;
 }
 
 .bg-blur {
@@ -55,6 +106,10 @@ h1 {
     font-size: 2.5rem;
 }
 
+h1:first-of-type {
+    text-align: center;
+}
+
 h2 {
     font-size: 2rem;
 }
@@ -64,5 +119,16 @@ h3 {
 }
 
 a[target=_blank] {
-    color: rgb(70, 255, 255);
+    color: hsl(var(--primary));
+}
+
+.underline-wavy-headings h2,
+.underline-wavy-headings h3 {
+    text-decoration: wavy underline hsl(var(--primary));
+}
+
+.highlight-invalid-inputs input:invalid,
+.highlight-invalid-inputs textarea:invalid,
+.highlight-invalid-inputs select:invalid {
+    border-color: theme('colors.red.700');
 }
