@@ -2,6 +2,7 @@ import { error, fail, type Actions } from "@sveltejs/kit";
 import pb from "../src/pb.server";
 import type { PageServerLoad } from "./$types";
 import type { HomePageData } from "../lib/types/home";
+import type { Config } from "@sveltejs/adapter-vercel";
 
 
 export const load: PageServerLoad = async () => {
@@ -57,3 +58,9 @@ export const actions: Actions = {
         return fail(400)
     }
 };
+
+export const config: Config = {
+    isr: {
+        expiration: 300
+    }
+}

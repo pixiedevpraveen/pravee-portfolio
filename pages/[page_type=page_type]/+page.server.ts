@@ -1,7 +1,7 @@
 import { error } from "@sveltejs/kit";
 import pb from "../../src/pb.server";
 import type { PageServerLoad } from "./$types";
-
+import type { Config } from "@sveltejs/adapter-vercel";
 
 export const load: PageServerLoad = async ({ params }) => {
     try {
@@ -15,3 +15,9 @@ export const load: PageServerLoad = async ({ params }) => {
 };
 
 // export const prerender = "auto";
+
+export const config: Config = {
+    isr: {
+        expiration: 300
+    }
+}
