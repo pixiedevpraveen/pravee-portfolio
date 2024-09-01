@@ -14,3 +14,5 @@ note.md
 pb
 static/icons/extra
 pnpm-lock.yaml
+
+*.sh

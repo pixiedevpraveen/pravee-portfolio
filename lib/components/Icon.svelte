@@ -20,10 +20,10 @@
 <div
     {...props}
     class={cn(
-        "icon flex justify-center items-center cursor-pointer rounded-full hover:bg-[#ffffff20]",
+        "icon inline-flex justify-center items-center cursor-pointer rounded-full hover:bg-[#ffffff20]",
         ICON_SIZES[size && size in ICON_SIZES ? size : "md"],
         className,
     )}
 >
-    <img src={src.startsWith(":") ? `/icons/${src.slice(1)}.svg` : src} {alt} />
+    <img src={src.startsWith(":") ? `/icons/${src.slice(1)}.svg` : src} loading="lazy" {alt} />
 </div>

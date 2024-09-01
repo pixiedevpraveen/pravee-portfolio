@@ -10,24 +10,25 @@
     }[] = JSON.parse(PUBLIC_NAV_ROUTES);
 </script>
 
-<nav class="navbar sticky top-2 bg-blur max-w-fit m-auto px-3 py-2 rounded-3xl">
-    <ul class="navbar__routes w-full flex justify-center gap-3">
+<nav
+    class="navbar sticky top-2 bg-blur max-w-fit h-fit z-20 mx-auto px-3 py-2 rounded-3xl"
+>
+    <ul class="navbar__routes w-full flex justify-4center gap-3">
         {#each routes as route (route.path)}
             <li>
                 <a
                     href={route.path}
                     class:route__active={$page.url.pathname === route.path}
+                    class="relative flex flex-col items-center"
                 >
-                    <div
-                        class="relative flex flex-col items-center transition-transform rounded-full"
-                    >
+                    <div class="transition-transform rounded-full">
                         <Icon class="active:scale-90" src={route.icon} />
-                        <small
-                            class="route__text bg-blur px-2 py-1 rounded-lg absolute top-[3rem]"
-                        >
-                            {route.text}
-                        </small>
                     </div>
+                    <small
+                        class="route__text bg-blur px-2 py-1 rounded-lg absolute top-[3rem]"
+                    >
+                        {route.text}
+                    </small>
                 </a>
             </li>
         {/each}
@@ -49,13 +50,13 @@
     }
 
     @media screen and (hover: hover) {
-        .navbar__routes li div .route__text {
+        .navbar__routes li .route__text {
             transition: all 0.3s;
             opacity: 0;
             transform: translateY(-100vh);
         }
 
-        .navbar__routes li div:hover .route__text {
+        .navbar__routes li:hover .route__text {
             opacity: 1;
             transform: translateY(0);
         }
@@ -70,9 +71,21 @@
     .navbar__routes:hover li div:hover {
         opacity: 1;
     }
-    .navbar__routes li .route__active > *:first-of-type {
-        background-color: #ffffff20;
+    .navbar__routes li .route__active > div {
         filter: brightness(0) saturate(100%) invert(62%) sepia(35%)
             saturate(7023%) hue-rotate(352deg) brightness(100%) contrast(96%);
+    }
+
+    .navbar__routes li .route__active > div::before {
+        @apply bg-primary bg-opacity-20;
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        z-index: -1;
+        view-transition-name: active-page;
     }
 </style>

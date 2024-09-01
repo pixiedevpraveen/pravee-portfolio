@@ -3,3 +3,5 @@ export const ICON_SIZES = {
     md: "w-[40px] h-[40px]",
     lg: "w-[50px] h-[50px]",
 } as const;
+
+export const CONTACT_FIELDS = ["title", "name", "email", "message"];

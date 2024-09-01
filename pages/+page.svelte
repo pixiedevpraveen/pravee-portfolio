@@ -1,7 +1,15 @@
-<script>
+<script lang="ts">
+  import AboutSections from "$lib/containers/AboutSections.svelte";
+
+  import CircleHero from "$lib/components/CircleHero.svelte";
+  import type { PageServerData } from "./$types";
   import Head from "$lib/components/Head.svelte";
-  import MyIntro from "$lib/components/MyInto.svelte";
+
+  let { data }: { data: PageServerData } = $props();
 </script>
 
-<Head title="Home" />
-<MyIntro />
+<Head title={data["title"] || "Home"} />
+
+<CircleHero data={data.data.work} />
+
+<AboutSections data={data.data} content={data.content} />

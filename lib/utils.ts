@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import type { Booleanish } from "svelte/elements";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -60,3 +61,48 @@ export const flyAndScale = (
 		easing: cubicOut
 	};
 };
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// type ClassParam = string | string[] | Record<string, Booleanish>
+// export function mergeClass(cls: ClassParam): string {
+// 	try {
+// 		if (typeof cls === "string")
+// 			return cls
+
+// 		if (Array.isArray(cls))
+// 			return [...new Set(cls.filter(c => c && typeof c === 'string'))].join(' ')
+
+// 		if (cls instanceof Object)
+// 			return Object.keys(cls).filter(k => cls[k]).join(' ')
+
+// 		throw "Unknown params to mergeClass"
+
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// 	return ''
+// }
+
+/**
+ * @function
+ * make the event handler to run only once
+ * @example
+ * ```svelte
+ * <button onclick={once(handler)}>show</button>
+ * ```
+ */
+export function once<T extends (event: Event) => void>(handler: T) {
+	return (event: Event) => {
+		handler(event);
+		event.currentTarget?.removeEventListener(event.type, handler);
+	};
+}
+
+export function debounce(fn: Function, delay: number) {
+	let timer: number;
+	return (...args: any[]) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => fn(...args), delay);
+	};
+}

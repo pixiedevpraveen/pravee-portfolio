@@ -10,10 +10,10 @@
 </script>
 
 <footer
-    class="flex mobile:flex-wrap items-center justify-around gap-2 px-2 py-5"
+    class="relative flex flex-wrap items-center justify-around gap-2 px-2 py-5 mt-5"
 >
-    <div>
-        Author:
+    <div class="px-2">
+        <span>&copy;{new Date().getFullYear()}</span>
         <a
             onclick={(e) => console.log(e)}
             rel="external"
@@ -26,7 +26,6 @@
     <div class="flex flex-wrap">
         {#each routes as route (route.icon)}
             <a
-                onclick={(e) => console.log(e)}
                 class="cursor-pointer"
                 href={route.url}
                 rel="external"
@@ -41,4 +40,7 @@
             </a>
         {/each}
     </div>
+    <div
+        class="absolute left-1/2 -translate-x-1/2 bottom-4 border-b-2 border-gray-400 w-4/6"
+    ></div>
 </footer>

@@ -1,4 +1,23 @@
 {
     "svelte.enable-ts-plugin": true,
-    "tailwindCSS.emmetCompletions": true
+    "tailwindCSS.emmetCompletions": true,
+    "files.associations": {
+        // "*.css": "tailwindcss",
+    },
+    "files.exclude": {
+        "**/.svelte-kit": true,
+    },
+    "explorer.fileNesting.patterns": {
+        ".svelte-kit": ".svelte-kit,dump,.npmrc",
+    },
+    "svelte.plugin.css.globals": "src/app.css",
+    "svelte.plugin.svelte.defaultScriptLanguage": "ts",
+    "svelte.plugin.svelte.format.config.svelteStrictMode": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "workbench.editor.customLabels.patterns": {
+        "*/pages/**/+page.svelte": "/${dirname}",
+        "*/pages/**/+layout.svelte": "/${dirname} layout",
+        "*/lib/components/**/*.svelte": "compo/ ${filename}",
+        "**/pb_hooks/*.pb.js": "${filename} - pb_hooks",
+    }
 }

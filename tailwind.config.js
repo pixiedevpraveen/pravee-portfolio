@@ -6,18 +6,24 @@ const config = {
 	content: ["./{pages,lib}/**/*.{html,js,svelte,ts}"],
 	// safelist: ["dark"],
 	theme: {
-		container: {
-			center: true,
-			padding: "2rem",
-			screens: {
-				mobile: { max: "459px" },
-				ssm: "200px",
-				sm: "460px",
-				md: "768px",
-				lg: "1024px",
-				"2xl": "1400px"
-			}
-		},
+		// container: {
+		// 	center: true,
+		// 	padding: "2rem",
+		// 	screens: {
+		// 		sm: "460px",
+		// 		md: "768px",
+		// 		lg: "1024px",
+		// 		"2xl": "1400px"
+		// 	}
+		// },
+		// screens: {
+		// 	mobile: { max: "459px" },
+		// 	ssm: "200px",
+		// 	sm: "460px",
+		// 	md: "768px",
+		// 	lg: "1024px",
+		// 	"2xl": "1400px"
+		// },
 		extend: {
 			colors: {
 				border: "hsl(var(--border) / <alpha-value>)",

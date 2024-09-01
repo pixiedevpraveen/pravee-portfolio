@@ -4,6 +4,8 @@
 
 @layer base {
     :root {
+        /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+        /* font-family: cursive; */
         --radius: 0.5rem;
         /* --background: 0 0% 100%;
         --foreground: 20 14.3% 4.1%;
@@ -72,11 +74,33 @@ body {
     padding: 0;
     margin: 0;
     scroll-padding-top: 4rem;
-}
-
-body {
     scroll-behavior: smooth;
 }
+
+/* body>#body-contents { */
+body {
+    min-height: 106vh;
+    display: flex;
+    flex-direction: column;
+    /* scrollbar-gutter: stable both-edges; */
+    /* display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2rem calc(max(100vh, 100%) - 5rem) 3rem;
+    grid-template: 
+        "navbar",
+        "page",
+        "footer"; */
+}
+
+/* .navbar {
+    grid-area: navbar;
+}
+#page {
+    grid-area: page;
+}
+footer {
+    grid-area: footer;
+} */
 
 :root {
     background-color: #080808;
@@ -102,6 +126,33 @@ body::before {
     -webkit-backdrop-filter: blur(10px);
 }
 
+.filter-primary {
+    filter: brightness(0) saturate(100%) invert(62%) sepia(35%) saturate(7023%) hue-rotate(352deg) brightness(100%) contrast(96%);
+}
+
+/* .dynamic-content { */
+.dynamic-content h1::before,
+.dynamic-content h2::before,
+.dynamic-content h3::before {
+    content: '<';
+    opacity: .2;
+}
+
+.dynamic-content h1::after,
+.dynamic-content h2::after,
+.dynamic-content h3::after {
+    content: ' />';
+    opacity: .2;
+}
+
+/* } */
+
+h1,
+h2,
+h3 {
+    line-height: 3rem;
+}
+
 h1 {
     font-size: 2.5rem;
 }
@@ -118,6 +169,7 @@ h3 {
     font-size: 1.5rem;
 }
 
+a[rel=external],
 a[target=_blank] {
     color: hsl(var(--primary));
 }
@@ -127,8 +179,152 @@ a[target=_blank] {
     text-decoration: wavy underline hsl(var(--primary));
 }
 
+input,
+textarea,
+select {
+    @apply bg-white/5
+}
+
+.input {
+    @apply flex min-h-[45px] w-full border px-3 py-1 rounded-lg shadow-sm
+}
+
+.input::placeholder {
+    @apply text-muted-foreground
+}
+
+.input:focus-visible {
+    @apply border-transparent outline-none ring-1 ring-ring
+}
+
+.textarea {
+    @apply flex min-h-[60px] w-full rounded-md border px-3 py-2 text-sm shadow-sm
+}
+
+.textarea::placeholder {
+    @apply text-muted-foreground
+}
+
+.textarea:focus-visible {
+    @apply border-transparent outline-none ring-1 ring-ring
+}
+
+.textarea:disabled {
+    @apply cursor-not-allowed opacity-50
+}
+
+input:focus-within,
+textarea:focus-within,
+select:focus-within {
+    @apply bg-transparent
+}
+
+.button {
+    @apply bg-blur px-5 py-2 rounded-2xl transition-all duration-100;
+}
+
+.button-outline {
+    @apply px-2 py-1 rounded-lg border-2 border-gray-400 focus:border-gray-200
+}
+
+.button:not(:disabled) {
+    box-shadow: inset 0 4px 12px 0 #ffffff25;
+}
+
+.button:hover:not(:disabled) {
+    box-shadow:
+        inset 0 4px 12px 0 #ffffff25,
+        1px -1px 0 #ffffff50,
+        -1px 1px 0 #ffffff50;
+}
+
+.button:active:not(:disabled) {
+    box-shadow: inset 0 4px 12px 0 #ffffff10;
+    background-color: #ffffff25;
+    transform: scale(0.95) translate(2px, 2px);
+}
+
+.button:focus-visible:not(:disabled) {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    transform: scale(1.05);
+}
+
+.button:disabled {
+    opacity: 0.95;
+    cursor: not-allowed;
+}
+
 .highlight-invalid-inputs input:invalid,
 .highlight-invalid-inputs textarea:invalid,
 .highlight-invalid-inputs select:invalid {
     border-color: theme('colors.red.700');
 }
+
+form label[data-required]::after {
+    content: '*';
+    color: red;
+}
+
+.anim-press-scale {
+    @apply transition-transform duration-300 active:scale-90
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slide-from-right {
+    from {
+        transform: translateX(30px);
+    }
+}
+
+@keyframes slide-to-left {
+    to {
+        transform: translateX(-30px);
+    }
+}
+
+:root {
+    view-transition-name: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    #page {
+        view-transition-name: page;
+    }
+
+    ::view-transition-old(page) {
+        animation: 300ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+            300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+    }
+
+    ::view-transition-new(page) {
+        animation: 700ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+            700ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+    }
+
+    .back-transition::view-transition-old(page) {
+        animation: 300ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+            300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
+    }
+
+    .back-transition::view-transition-new(page) {
+        animation: 700ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+            700ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-left;
+    }
+}
+
+.view-from {}
+
+.view-to {}
