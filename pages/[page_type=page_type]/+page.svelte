@@ -16,18 +16,20 @@
     {#each data["data"]["items"] as page (page["slug"])}
       <a href="{`/${data.page_type}/${page.slug}`}" class="anim-inout">
         <div
-          class="hover:animate-pulse focus:scale-x-105 w-[min(50rem,90vw)] px-2 py-3 border-2 border-opacity-20 shadow hover:shadow-2xl focus-visible:outline-offset-2 rounded-lg view-from flex gap-3"
+          class="hover:animate-pulse focus:scale-x-105 w-[min(50rem,90vw)] ps-2 pe-3 py-3 border-2 border-opacity-20 shadow hover:shadow-2xl focus-visible:outline-offset-2 rounded-lg view-from flex gap-3"
         >
-          <img class="w-12" src="/icons/file.svg" alt="" />
-          <div class="flex flex-col">
+          <img class="w-12" src={page.thumb||"/icons/file.svg"} alt="" />
+          <div class="flex-1 flex flex-col">
             <strong
               class="pb-1"
               style="{`view-transition-name: hero-${page.id}`}"
               >{page.title}</strong
             >
-            <div class="flex gap-2 text-sm">
-              <span>{page.created}</span>
-              <span>{page.categories}</span>
+            <div class="flex gap-2 justify-between text-sm">
+              <span>{new Date(page.created).toLocaleDateString()}</span>
+              <span class="ring-1 ring-white rounded-sm px-2"
+                >{page.categories}</span
+              >
             </div>
           </div>
         </div>
