@@ -288,6 +288,18 @@ form label[data-required]::after {
     }
 }
 
+@keyframes slide-from-left {
+    from {
+        transform: translateX(-30px);
+    }
+}
+
+@keyframes slide-to-right {
+    to {
+        transform: translateX(30px);
+    }
+}
+
 @keyframes slide-to-left {
     to {
         transform: translateX(-30px);
@@ -328,3 +340,30 @@ form label[data-required]::after {
 .view-from {}
 
 .view-to {}
+
+@keyframes animate-in-and-out {
+    entry 0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    entry 50% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    exit 40% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    exit 50% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+.anim-inout {
+    animation: linear animate-in-and-out;
+    animation-timeline: view();
+}

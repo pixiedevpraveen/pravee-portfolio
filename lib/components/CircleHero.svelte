@@ -1,10 +1,30 @@
 <script lang="ts">
+    import { PUBLIC_AUTHOR, PUBLIC_AUTHOR_ISA } from "$env/static/public";
+    import { onMount } from "svelte";
     import type { Work } from "../types/home";
 
-    let show = $state(true);
-    let deg = $state(0);
-
     let { data }: { data: Work[] } = $props();
+
+    let show = $state(false);
+
+    onMount(() => {
+        const el = document.querySelector(".circle-anim");
+        if (!el) return;
+
+        const obs = new IntersectionObserver(
+            (entries) => {
+                const ratio = entries[0].intersectionRatio;
+                // console.log(ratio);
+                show = ratio === 1;
+            },
+            { threshold: [1, 0.7] },
+        );
+
+        obs.observe(el);
+        return () => {
+            obs.unobserve(el);
+        };
+    });
 
     const getTransformDegree = (index: number) => {
         let part = Math.round(360 / (data ? data.length + 1 : 0));
@@ -18,19 +38,11 @@
 <section
     class="circle-anim relative flex flex-col items-center justify-center rounded-full w-96 aspect-square max-w-[90vw] border-21 border-[#d3d3d350] mx-auto mt-6"
 >
-    <button
-        onclick="{() => (show = !show)}"
-        class="anim-vawe p-0 relative cursor-pointer rounded-full w-2/5 sm:w-1/2 aspect-square 1border-2 border-[#d3d3d3] 1bg-[linear-gradient(120deg,white,#ececec)] bg-blur"
-    >
-        <img class="" src="/android-chrome-512x512.png" alt="" />
-    </button>
-
     {#each data as item, idx (item["title"] + idx)}
         <button
-            onclick="{() => (deg += 60)}"
-            class="circle-float text-sm sm:text-base flex flex-col items-center absolute p-2 rounded-full transition-all duration-700 bg-blur"
-            class:!transform-none="{!show}"
-            style="{`--degree: ${getTransformDegree(idx) + deg}deg;`}"
+            class="circle-float text-sm sm:text-base flex flex-col items-center absolute p-2 rounded-full bg-blur"
+            class:anim-none="{!show}"
+            style="{`--degree: ${getTransformDegree(idx)}deg;`}"
             >{item.title}
             <p
                 class="details absolute p-2 top-[120%] rounded-lg max-w-full bg-blur"
@@ -41,10 +53,16 @@
     {/each}
 
     <div
+        class="anim-vawe relative cursor-pointer rounded-full w-2/5 sm:w-1/2 aspect-square 1border-2 border-[#d3d3d3] 1bg-[linear-gradient(120deg,white,#ececec)] bg-blur p-2 z-10"
+    >
+        <img class="" src="/android-chrome-512x512.png" alt="" />
+    </div>
+
+    <div
         class="about-me text-sm sm:text-base rounded-lg flex flex-col w-max items-center scale-90 transition-opacity"
     >
-        <span class="font-semibold">Praveen yadav</span>
-        <span>Software Developer</span>
+        <span class="font-semibold">{PUBLIC_AUTHOR}</span>
+        <span>{PUBLIC_AUTHOR_ISA}</span>
     </div>
 </section>
 
@@ -54,32 +72,15 @@
     }
 
     .circle-anim .circle-float {
-        transform: rotate(var(--degree)) translateX(min(12rem, 35vw))
-            rotate(calc(var(--degree) * -1)) scale(0.8);
-        transition: all 0.5s;
+        transition: transform 5s;
+        transform: scale(0.8);
+        animation: circle-anim 10s forwards ease infinite;
+        animation-delay: 1s;
     }
-    .circle-anim .circle-float {
-        animation: circle-anim 15s forwards ease infinite;
-    }
-    .circle-anim:hover .circle-float {
+    .circle-anim:focus-within .circle-float,
+    .circle-anim:hover .circle-float,
+    .circle-anim .circle-float.anim-none {
         animation-play-state: paused;
-    }
-    @keyframes circle-anim {
-        0% {
-            transform: rotate(var(--degree)) translateX(min(12rem, 35vw))
-                rotate(calc(var(--degree) * -1)) scale(0.8);
-        }
-        100% {
-            transform: rotate(calc(var(--degree) + 360deg))
-                translateX(min(12rem, 35vw))
-                rotate(calc(var(--degree) * -1 - 360deg)) scale(0.8);
-        }
-    }
-    .circle-anim:focus-within .circle-float:not(:focus-within),
-    .circle-anim:focus-within .circle-float:not(:focus-within) {
-        z-index: -1;
-        transform: rotate(0deg) translateX(0) rotate(0deg) scale(1);
-        /* opacity: 0; */
     }
     .circle-float:focus-within {
         transform: translateY(220%) !important;
@@ -88,6 +89,29 @@
     .circle-float:not(:focus) .details {
         display: none;
     }
+
+    @keyframes circle-anim {
+        0% {
+            transform: rotate(var(--degree)) translateX(0)
+                rotate(calc(var(--degree) * -1)) scale(0.8);
+        }
+
+        20% {
+            transform: rotate(calc(var(--degree) + 360deg))
+                translateX(min(12rem, 35vw))
+                rotate(calc(var(--degree) * -1 - 360deg)) scale(0.8);
+        }
+        80% {
+            transform: rotate(calc(var(--degree) + 360deg))
+                translateX(min(12rem, 35vw))
+                rotate(calc(var(--degree) * -1 - 360deg)) scale(0.8);
+        }
+        90% {
+            transform: rotate(var(--degree)) translateX(min(12rem, 35vw))
+                rotate(calc(var(--degree) * -1)) scale(0.8);
+        }
+    }
+
     .anim-vawe/* ,
     .anim-vawe-hover:hover */ {
         border-radius: 38% 62% 55% 45% / 32% 53% 47% 68%;

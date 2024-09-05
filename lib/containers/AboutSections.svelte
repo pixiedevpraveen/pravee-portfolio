@@ -15,12 +15,12 @@
 <main
     class="dynamic-content underline-wavy-headings max-w-[1000px] mx-auto flex flex-col gap-2 p-2"
 >
-    <section>
+    <section class="anim-inout">
         <h2>Hello!</h2>
         <p class="px-2 ml-auto max-w-[800px]">{@html content}</p>
     </section>
 
-    <section>
+    <section class="anim-inout">
         <div class="flex items-center">
             <h3 id="h-skills">Skills</h3>
         
@@ -52,7 +52,7 @@
     </section>
 
     {#if data.education?.length}        
-        <section>
+        <section class="anim-inout">
             <div class="flex items-center">
                 <h3 id="h-education">Education</h3>
     
@@ -124,7 +124,7 @@
         </section>
     {/if}
     
-    <section>
+    <section class="anim-inout">
         <h3 id="h-internship">Internship</h3>
 
         <div class="ml-auto max-w-[800px]">
@@ -147,7 +147,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="anim-inout">
         <h3 id="h-projects">Projects</h3>
 
         <div class="ml-auto max-w-[800px]">
@@ -186,7 +186,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="anim-inout">
         <h3 id="h-achievements">Achievements</h3>
 
         <div class="ml-auto max-w-[min(800px,100%)]">

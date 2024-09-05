@@ -14,12 +14,22 @@
 <main class="max-w-[1000px] mx-auto flex flex-col gap-2 p-2 mt-[5rem]">
   <div class="flex flex-col mx-auto gap-3">
     {#each data["data"]["items"] as page (page["slug"])}
-      <a href={`/${data.page_type}/${page.slug}`}>
+      <a href="{`/${data.page_type}/${page.slug}`}" class="anim-inout">
         <div
-          class="w-[min(50rem,90vw)] px-5 py-3 border-2 border-opacity-20 shadow hover:shadow-2xl active:scale-95 focus-visible:outline-offset-2 rounded-lg view-from"
-          style={`view-transition-name: hero-${page.id}`}
+          class="hover:animate-pulse focus:scale-x-105 w-[min(50rem,90vw)] px-2 py-3 border-2 border-opacity-20 shadow hover:shadow-2xl focus-visible:outline-offset-2 rounded-lg view-from flex gap-3"
         >
-          {page.title}
+          <img class="w-12" src="/icons/file.svg" alt="" />
+          <div class="flex flex-col">
+            <strong
+              class="pb-1"
+              style="{`view-transition-name: hero-${page.id}`}"
+              >{page.title}</strong
+            >
+            <div class="flex gap-2 text-sm">
+              <span>{page.created}</span>
+              <span>{page.categories}</span>
+            </div>
+          </div>
         </div>
       </a>
     {:else}

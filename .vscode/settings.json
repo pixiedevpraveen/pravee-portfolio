@@ -16,8 +16,9 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "workbench.editor.customLabels.patterns": {
         "*/pages/**/+page.svelte": "/${dirname}",
+        "*/pages/**/+page.server.ts": "/${dirname}",
         "*/pages/**/+layout.svelte": "/${dirname} layout",
-        "*/lib/components/**/*.svelte": "compo/ ${filename}",
+        "*/lib/components/**/*.svelte": "${filename} - compo",
         "**/pb_hooks/*.pb.js": "${filename} - pb_hooks",
     }
 }

@@ -139,6 +139,7 @@ export enum PagesPageTypeOptions {
 export type PagesRecord<Tdata = unknown> = {
 	categories?: string
 	content: HTMLString
+	cover?: string
 	data?: null | Tdata
 	description?: string
 	is_active?: boolean
@@ -148,6 +149,7 @@ export type PagesRecord<Tdata = unknown> = {
 	keywords?: string
 	page_type: PagesPageTypeOptions
 	slug: string
+	thumb?: string
 	title: string
 	user: RecordIdString
 }
