@@ -1,22 +1,23 @@
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import pb from "../../../src/pb.server";
-import type { Config } from "@sveltejs/adapter-vercel";
+// import type { Config } from "@sveltejs/adapter-vercel";
 
-export const load: PageServerLoad = async ({ params }) => {
-    try {
+export const load: PageServerLoad = async ({ params, locals }) => {
+  try {
+    return {
+      pageData: await locals.pb.send("/api/myapi/pages/" + params.slug, {
+        page_type: params.page_type,
+      }),
+    };
+  } catch (error) {
+    console.log(error);
+  }
 
-        return { pageData: await pb.collection("pages").getFirstListItem(pb.filter("slug = {:slug} && page_type = {:page_type} && is_active = true && is_public = true", { page_type: params.page_type, slug: params.slug })) }
-
-    } catch (error) {
-        console.log(error);
-    }
-
-    error(404, "Page not found or moved somewhere else")
+  error(404, "Page not found or moved somewhere else");
 };
 
-export const config: Config = {
-    isr: {
-        expiration: 300
-    }
-}
+// export const config: Config = {
+//   isr: {
+//     expiration: 300,
+//   },
+// };
