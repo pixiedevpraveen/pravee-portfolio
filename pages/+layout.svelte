@@ -10,8 +10,7 @@
 
     onNavigate((navigation) => {
         if (!(document as any).startViewTransition) return;
-        
-        
+
         return new Promise((resolve) => {
             (document as any).startViewTransition(async () => {
                 resolve()

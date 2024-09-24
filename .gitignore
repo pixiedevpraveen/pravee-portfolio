@@ -10,9 +10,9 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 dump
+pages/dev
 note.md
 pb
 static/icons/extra
-pnpm-lock.yaml
 
 *.sh

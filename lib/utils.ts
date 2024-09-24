@@ -2,7 +2,6 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
-import type { Booleanish } from "svelte/elements";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -100,7 +99,7 @@ export function once<T extends (event: Event) => void>(handler: T) {
 }
 
 export function debounce(fn: Function, delay: number) {
-	let timer: number;
+	let timer: ReturnType<typeof setTimeout>;
 	return (...args: any[]) => {
 		clearTimeout(timer);
 		timer = setTimeout(() => fn(...args), delay);
