@@ -16,14 +16,12 @@
             (document as any).startViewTransition(async () => {
                 resolve()
                 loading = false
-                console.log("end");
                 await navigation.complete;
             })
         })
     })
 
     beforeNavigate(() => {
-        console.log("start");
         loading = true
     })
 </script>
