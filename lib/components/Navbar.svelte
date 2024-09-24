@@ -1,10 +1,14 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { page } from "$app/stores";
     import { PUBLIC_NAV_ROUTES } from "$env/static/public";
     import Icon from "$lib/components/Icon.svelte";
 
+    let { loading }: { loading?: boolean } = $props()
+    
     const routes: {
         path: string;
+        pathPrefix?: string;
         icon: string;
         text: string;
     }[] = JSON.parse(PUBLIC_NAV_ROUTES);
@@ -12,13 +16,20 @@
 
 <nav
     class="navbar sticky top-2 bg-blur max-w-fit h-fit z-20 mx-auto px-3 py-2 rounded-3xl"
+    data-loading={loading}
+    oncontextmenu={(e) => {
+        e.preventDefault();
+        goto('/login');
+    }}
 >
     <ul class="navbar__routes w-full flex justify-4center gap-3">
         {#each routes as route (route.path)}
             <li>
                 <a
-                    href={route.path}
-                    class:route__active={$page.url.pathname === route.path}
+                    href="{route.path}"
+                    class:route__active={$page.url.pathname === route.path ||
+                        (route.pathPrefix &&
+                            $page.url.pathname.startsWith(route.pathPrefix))}
                     class="relative flex flex-col items-center"
                 >
                     <div class="transition-transform rounded-full">
@@ -87,5 +98,30 @@
         border-radius: 100%;
         z-index: -1;
         view-transition-name: active-page;
+    }
+    .navbar>* {
+        transition: 0.3s transform;
+        transition-delay: .2s;
+    }
+    .navbar[data-loading="true"]>* {
+        transform: scale(0.95);
+    }
+    .navbar[data-loading="true"] {
+        animation: loading-ring-primary linear 1s infinite;
+        animation-delay: .2s;
+    }
+    @keyframes loading-ring-primary {
+        0%, 100% {
+            box-shadow:
+                1px 1px 1px hsl(var(--primary) / 1),
+                -1px -1px 1px hsl(var(--primary) / 0.1);
+                transform: translate(-2px, -2px);
+            }
+            50% {
+            transform: translate(0, 0);
+            box-shadow:
+                1px 1px 1px hsl(var(--primary) / 0.1),
+                -1px -1px 1px hsl(var(--primary) / 1);
+        }
     }
 </style>

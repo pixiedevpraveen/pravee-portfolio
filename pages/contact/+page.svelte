@@ -3,7 +3,7 @@
   import Head from "$lib/components/Head.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import { CONTACT_FIELDS } from "$lib/constants";
-  import { MESSAGE_TAG_CLASSES, type MessageType } from "$lib/message";
+  import type { MessageType } from "$lib/message";
 
   let loading = $state(false);
   let msg = $state<MessageType>({ desc: "", tag: "info" });
@@ -55,13 +55,17 @@
   <h1>Contact</h1>
 </header>
 
-<main class="px-3">
+<main class="px-3 mt-[5rem]">
   <form action="" {onsubmit} id="contact-form">
     <section
       class="max-w-[40rem] bg-blur p-5 rounded-xl m-auto min-h-[60vh] flex flex-col gap-5 justify-evenly"
     >
-      <span class="{MESSAGE_TAG_CLASSES[msg?.tag]?.color}"
-        >{msg?.["desc"] || "Send me a message"}</span
+      <span
+        class="{msg?.tag === 'success'
+          ? 'text-green-500'
+          : msg?.tag === 'error'
+            ? 'text-red-500'
+            : ''}">{msg?.["desc"] || "Send me a message"}</span
       >
 
       <div class="flex flex-col gap-2">

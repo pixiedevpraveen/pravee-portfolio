@@ -1,6 +1,5 @@
-import { PB_AUTO_CANCELLATION, PB_EMAIL, PB_PASS, PB_URL } from '$env/static/private';
-import PocketBase from 'pocketbase';
-import type { TPocketBase } from './pb-types-advance';
+import { PB_EMAIL, PB_PASS } from '$env/static/private';
+import { createPb } from '$lib/pb';
 
 let authToken = '';
 
@@ -9,13 +8,7 @@ let authToken = '';
 //     initial: (await Preferences.get({ key: 'pb_auth' })).value ?? undefined,
 // });
 
-const pb = new PocketBase(PB_URL) as TPocketBase
+export const pb = createPb()
 pb.admins.authWithPassword(PB_EMAIL, PB_PASS)
 
 pb.authStore.onChange((c: string) => (authToken = c || authToken))
-
-if (PB_AUTO_CANCELLATION === "FALSE") {
-    pb.autoCancellation(false);
-}
-
-export default pb;

@@ -1,5 +1,5 @@
 import type { Actions } from "@sveltejs/kit";
-import pb from "../../src/pb.server";
+import { pb } from "../../src/pb.server";
 import { CONTACT_FIELDS } from "$lib/constants";
 import { ClientResponseError } from "pocketbase";
 import { parseSchema, SchemaError } from "$lib/parser";

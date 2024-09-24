@@ -3,40 +3,34 @@
     import Footer from "$lib/components/Footer.svelte";
     import Navbar from "$lib/components/Navbar.svelte";
     import Subscribe from "$lib/components/Subscribe.svelte";
-    import { onNavigate } from "$app/navigation";
+    import { onNavigate, beforeNavigate } from "$app/navigation";
     let { children } = $props()
 
-    // let pos = {x: 0, y: 0}
-
-    // onMount(() => {
-    //     document.addEventListener("click", onClick)
-    //     return () => {
-    //         document.removeEventListener("click", onClick)
-    //     }
-    // })
-
+    let loading = $state(false)
 
     onNavigate((navigation) => {
         if (!(document as any).startViewTransition) return;
-
+        
+        
         return new Promise((resolve) => {
             (document as any).startViewTransition(async () => {
                 resolve()
+                loading = false
+                console.log("end");
                 await navigation.complete;
             })
         })
     })
-    
-    // const onClick = (e: MouseEvent) => {
-    //         console.log(e.x, e.y);
-    //         pos.x = e.x
-    //         pos.y = e.y
-    //     }
+
+    beforeNavigate(() => {
+        console.log("start");
+        loading = true
+    })
 </script>
 
-<Navbar />
+<Navbar loading={loading} />
 
-<div id="page" class="flex-1 mt-3">
+<div id="page" class="flex-1 mt-3 flex flex-col">
     {@render children()}
 </div>
 

@@ -27,15 +27,3 @@ export const Message = {
         return { desc: message, tag: "error" }
     }
 }
-
-export const MESSAGE_TAG_CLASSES = {
-    info: {
-        color: ""
-    },
-    success: {
-        color: "text-green-500"
-    },
-    error: {
-        color: "text-red-500"
-    },
-}

@@ -17,7 +17,7 @@
     "workbench.editor.customLabels.patterns": {
         "*/pages/**/+page.svelte": "/${dirname}",
         "*/pages/**/+page.server.ts": "/${dirname}",
-        "*/pages/**/+layout.svelte": "/${dirname} layout",
+        "*/pages/**/+layout.svelte": "/${dirname} - layout",
         "*/lib/components/**/*.svelte": "${filename} - compo",
         "**/pb_hooks/*.pb.js": "${filename} - pb_hooks",
     }

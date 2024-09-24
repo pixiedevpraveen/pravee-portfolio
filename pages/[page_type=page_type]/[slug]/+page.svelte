@@ -5,7 +5,7 @@
   let { data }: { data: PageServerData } = $props();
 </script>
 
-<Head title={data.pageData.title} />
+<Head title={data.pageData.title} description={data.pageData.description} />
 
 <header>
   <h1

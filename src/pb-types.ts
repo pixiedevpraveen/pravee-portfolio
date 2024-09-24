@@ -4,7 +4,7 @@
 
 
 export enum Collections {
-	BlogList = "blog_list",
+	PageList = "page_list",
 	Contact = "contact",
 	Freelance = "freelance",
 	Note = "note",
@@ -197,7 +197,7 @@ export type UsersResponse<Tdata = unknown, Texpand = unknown> = Required<UsersRe
 // Types containing all Records and Responses, useful for creating typing helper functions
 
 export type CollectionRecords = {
-	blog_list: BlogListRecord
+	page_list: BlogListRecord
 	contact: ContactRecord
 	freelance: FreelanceRecord
 	note: NoteRecord
@@ -210,7 +210,7 @@ export type CollectionRecords = {
 }
 
 export type CollectionResponses = {
-	blog_list: BlogListResponse
+	page_list: BlogListResponse
 	contact: ContactResponse
 	freelance: FreelanceResponse
 	note: NoteResponse

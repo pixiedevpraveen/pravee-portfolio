@@ -4,11 +4,11 @@ import type { HomePageData } from "../lib/types/home";
 // import type { Config } from "@sveltejs/adapter-vercel";
 
 export const load: PageServerLoad = async ({ locals }) => {
-  try {
+  // try {
     return locals.pb.send("/api/myapi/pages/home", {}) as Promise<HomePageData>;
-  } catch (error) {
-    console.error("ERROR: ", error);
-  }
+  // } catch (error) {
+  //   console.error("ERROR: ", error);
+  // }
 
   // return error(404, "Page not found or moved somewhere else");
 };

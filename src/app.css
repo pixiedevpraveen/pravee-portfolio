@@ -130,6 +130,19 @@ body::before {
     filter: brightness(0) saturate(100%) invert(62%) sepia(35%) saturate(7023%) hue-rotate(352deg) brightness(100%) contrast(96%);
 }
 
+pre {
+    white-space: pre-wrap;
+    /* css-3 */
+    white-space: -moz-pre-wrap;
+    /* Mozilla, since 1999 */
+    white-space: -pre-wrap;
+    /* Opera 4-6 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* Internet Explorer 5.5+ */
+}
+
 /* .dynamic-content { */
 .dynamic-content h1::before,
 .dynamic-content h2::before,
@@ -145,12 +158,25 @@ body::before {
     opacity: .2;
 }
 
+.dynamic-content li {
+    padding-left: 1rem;
+}
+
+.dynamic-content ul li::before {
+    content: "> ";
+    color: var(--primary-color);
+    padding-right: .5rem;
+    display: inline-block;
+}
+
 /* } */
 
 h1,
 h2,
 h3 {
     line-height: 3rem;
+    margin-bottom: .5rem;
+    margin-top: 1rem;
 }
 
 h1 {
@@ -220,7 +246,7 @@ select:focus-within {
 }
 
 .button {
-    @apply bg-blur px-5 py-2 rounded-2xl transition-all duration-100;
+    @apply bg-blur px-5 py-2 rounded-lg transition-all duration-100;
 }
 
 .button-outline {

@@ -17,13 +17,13 @@
 >
     <section class="anim-inout">
         <h2>Hello!</h2>
-        <p class="px-2 ml-auto max-w-[800px]">{@html content}</p>
+        <p class="px-2 ml-auto max-w-[800px] text-justify">{@html content}</p>
     </section>
 
     <section class="anim-inout">
         <div class="flex items-center">
             <h3 id="h-skills">Skills</h3>
-        
+
             <Icon
                 tabindex={0}
                 src={skillsColumnView ? ':list' : ':columns'}
@@ -51,11 +51,11 @@
        {/if}
     </section>
 
-    {#if data.education?.length}        
+    {#if data.education?.length}
         <section class="anim-inout">
             <div class="flex items-center">
                 <h3 id="h-education">Education</h3>
-    
+
                 <Icon
                     tabindex={0}
                     src={educationTableView ? ':list' : ':table'}
@@ -63,7 +63,7 @@
                     onclick={() => (educationTableView = !educationTableView)}
                 />
             </div>
-    
+
             {#if educationTableView}
                 <table
                     transition:slide={{ delay: 0, duration: 500 }}
@@ -123,7 +123,7 @@
             {/if}
         </section>
     {/if}
-    
+
     <section class="anim-inout">
         <h3 id="h-internship">Internship</h3>
 
