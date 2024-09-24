@@ -1,6 +1,6 @@
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-// import type { Config } from "@sveltejs/adapter-vercel";
+import type { Config } from "@sveltejs/adapter-vercel";
 
 export const load: PageServerLoad = async ({ params, locals }) => {
   try {
@@ -16,8 +16,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
   error(404, "Page not found or moved somewhere else");
 };
 
-// export const config: Config = {
-//   isr: {
-//     expiration: 300,
-//   },
-// };
+export const config: Config = {
+  isr: {
+    expiration: 300,
+  },
+};
